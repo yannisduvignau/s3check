@@ -1,0 +1,93 @@
+# --- Security (CRITICAL) ---
+# Stores sensitive credentials - NEVER commit this file to Git
+.env
+*.pem
+*.key
+*_secret_*
+*-secret-*
+
+# Config files with credentials (user-generated)
+s3check_*.json
+!examples/*.json
+
+# --- Python ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Testing ---
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+htmlcov/
+.pytest_cache/
+*.cover
+*.py,cover
+.hypothesis/
+coverage.xml
+*.log
+
+# --- Type checking ---
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# --- IDE & OS Metadata ---
+# VS Code settings
+.vscode/
+# PyCharm settings
+.idea/
+*.swp
+*.swo
+*~
+# macOS folder metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows thumbnail cache
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+
+# --- Build tools ---
+*.spec
+
+# --- Project specific ---
+# Bandit security reports
+bandit-report.json

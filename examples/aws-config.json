@@ -1,0 +1,6 @@
+{
+  "provider": "AWS S3",
+  "access_key": "AKIAIOSFODNN7EXAMPLE",
+  "region": "eu-west-1",
+  "bucket": "my-production-bucket"
+}
