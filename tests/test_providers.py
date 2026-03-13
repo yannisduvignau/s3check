@@ -1,12 +1,8 @@
-"""
-Tests for s3check.providers module.
-"""
-
-import pytest
+"""Tests for s3check.providers module."""
 
 from s3check.providers import (
-    PROVIDERS,
     PROVIDER_CLI_MAP,
+    PROVIDERS,
     build_endpoint,
     get_provider,
     get_provider_by_name,

@@ -1,8 +1,4 @@
-"""
-Tests for s3check.ui module.
-"""
-
-import pytest
+"""Tests for s3check.ui module."""
 
 from s3check.ui import c, colors_enabled, disable_colors
 
@@ -32,10 +28,10 @@ class TestColorFunctions:
         """Test that colors are enabled by default."""
         # Note: This might fail if run after test_disable_colors
         # In a real test suite, we'd need to reset state or use fixtures
-        from s3check import ui
-
         # Re-import to get fresh state
         import importlib
+
+        from s3check import ui
 
         importlib.reload(ui)
         assert ui.colors_enabled()

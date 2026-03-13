@@ -4,7 +4,7 @@
 repos:
   # General file checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -21,7 +21,7 @@ repos:
 
   # Python formatting with black
   - repo: https://github.com/psf/black
-    rev: 23.12.1
+    rev: 26.3.1
     hooks:
       - id: black
         language_version: python3
@@ -29,14 +29,14 @@ repos:
 
   # Python import sorting with isort
   - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+    rev: 8.0.1
     hooks:
       - id: isort
         args: ['--profile=black', '--line-length=100']
 
   # Python linting with flake8
   - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
+    rev: 7.3.0
     hooks:
       - id: flake8
         args: ['--max-line-length=100', '--extend-ignore=E203,W503']
@@ -44,15 +44,15 @@ repos:
 
   # Python type checking with mypy
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.19.1
     hooks:
       - id: mypy
         additional_dependencies: [types-boto3]
-        args: ['--ignore-missing-imports', '--python-version=3.8']
+        args: ['--ignore-missing-imports', '--python-version=3.9']
 
   # Security checks
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.6
+    rev: 1.9.4
     hooks:
       - id: bandit
         args: ['-c', 'pyproject.toml']
@@ -60,7 +60,7 @@ repos:
 
   # Markdown linting
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.38.0
+    rev: v0.48.0
     hooks:
       - id: markdownlint
         args: ['--fix']
