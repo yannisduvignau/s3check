@@ -21,7 +21,7 @@ from s3check.ui import BOLD, DIM, WHITE, YELLOW, banner, c, disable_colors, prin
 def main():
     """
     Main entry point for the s3check CLI application.
-    
+
     Handles three modes:
       1. Non-interactive CLI mode  (--provider / --access-key / … flags)
       2. Config file mode          (--config flag)
@@ -45,9 +45,7 @@ environment variables:
         """,
     )
 
-    parser.add_argument(
-        "--version", action="version", version=f"%(prog)s {__version__}"
-    )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
         "--config", metavar="FILE", help="Path to a previously saved JSON config file"
     )
@@ -89,8 +87,7 @@ environment variables:
         # Build config from CLI args, falling back to environment variables
         cfg = {
             "access_key": args.access_key or os.environ.get("AWS_ACCESS_KEY_ID", ""),
-            "secret_key": args.secret_key
-            or os.environ.get("AWS_SECRET_ACCESS_KEY", ""),
+            "secret_key": args.secret_key or os.environ.get("AWS_SECRET_ACCESS_KEY", ""),
             "region": args.region or provider["region_default"],
             "bucket": args.bucket or "",
             "endpoint": args.endpoint or "",
@@ -101,7 +98,8 @@ environment variables:
             print(
                 c(
                     YELLOW + BOLD,
-                    "\n  [ERROR] Missing credentials. Provide them via CLI flags or environment variables.\n",
+                    "\n  [ERROR] Missing credentials. Provide them via CLI flags "
+                    "or environment variables.\n",
                 )
             )
             print(c(DIM, "  CLI flags:"))
@@ -132,7 +130,8 @@ environment variables:
             print(
                 c(
                     YELLOW + BOLD,
-                    f"\n  [WARNING] Unknown provider '{pname}' in config, using Generic S3-Compatible\n",
+                    f"\n  [WARNING] Unknown provider '{pname}' in config, "
+                    f"using Generic S3-Compatible\n",
                 )
             )
             provider = PROVIDERS["7"]

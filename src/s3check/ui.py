@@ -30,7 +30,7 @@ _COLORS_ENABLED = True
 def disable_colors():
     """
     Disable all ANSI color codes globally.
-    
+
     Useful when redirecting output to a file or running in CI systems
     that don't support ANSI codes.
     """
@@ -53,11 +53,11 @@ def colors_enabled():
 def c(color, text):
     """
     Wrap `text` with an ANSI color code and reset at the end.
-    
+
     Args:
         color (str): ANSI color code (e.g., RED, GREEN, BOLD).
         text (str): Text to colorize.
-        
+
     Returns:
         str: Colorized text with reset suffix.
     """
@@ -67,7 +67,7 @@ def c(color, text):
 def ok(msg):
     """
     Print a success line (green checkmark).
-    
+
     Args:
         msg (str): Success message to display.
     """
@@ -77,7 +77,7 @@ def ok(msg):
 def fail(msg):
     """
     Print a failure line (red cross).
-    
+
     Args:
         msg (str): Error message to display.
     """
@@ -87,7 +87,7 @@ def fail(msg):
 def warn(msg):
     """
     Print a warning line (yellow exclamation mark).
-    
+
     Args:
         msg (str): Warning message to display.
     """
@@ -97,7 +97,7 @@ def warn(msg):
 def info(msg):
     """
     Print an informational line (blue arrow).
-    
+
     Args:
         msg (str): Informational message to display.
     """
@@ -107,7 +107,7 @@ def info(msg):
 def step(msg):
     """
     Print a section header to visually separate check phases.
-    
+
     Args:
         msg (str): Section title to display.
     """
@@ -117,25 +117,25 @@ def step(msg):
 def prompt_bool(label: str, default: bool = True) -> bool:
     """
     Ask a yes/no question and return a boolean.
-    
+
     The prompt shows "Y/n" when default is True, "y/N" when False.
     Accepts: y, yes, 1, true  →  True
              anything else    →  False (or the default on empty input)
-             
+
     Args:
         label (str): Question to ask the user.
         default (bool): Default value if user presses Enter without typing.
-        
+
     Returns:
         bool: User's response as a boolean.
-        
+
     Examples:
         >>> prompt_bool("Continue?", default=True)
         Continue? (Y/n):
         True
     """
     from s3check.config import prompt
-    
+
     default_str = "Y/n" if default else "y/N"
     val = prompt(label, choices=[default_str])
     if not val:
@@ -155,10 +155,10 @@ def banner():
         c(
             CYAN,
             r"""
- ____  _____        _               _    
+ ____  _____        _               _
 / ___||___ /   ___| |__   ___  ___| | __
 \___ \  |_ \  / __| '_ \ / _ \/ __| |/ /
- ___) |___) || (__| | | |  __/ (__|   < 
+ ___) |___) || (__| | | |  __/ (__|   <
 |____/|____/  \___|_| |_|\___|\___|_|\_\
 """,
         )
@@ -175,14 +175,14 @@ def banner():
 def print_summary(results, provider, cfg):
     """
     Print a formatted summary table after all checks have run.
-    
+
     Status icons:
       ✓ OK      — check passed
       ✗ FAILED  — check failed
       ! DENIED  — access denied (credentials valid, but insufficient permissions)
       - N/A     — check was not attempted (e.g. no bucket specified)
       ? PARTIAL — unexpected / ambiguous result
-      
+
     Args:
         results (dict): Nested dictionary of check results.
         provider (dict): Provider configuration.
@@ -195,7 +195,7 @@ def print_summary(results, provider, cfg):
     def row(label, status):
         """
         Print a single summary row with a status icon.
-        
+
         Args:
             label (str): Description of the check.
             status: Check result (True/False/"denied"/None/other).
@@ -237,9 +237,7 @@ def print_summary(results, provider, cfg):
         print(f"  {c(DIM, 'Latency :')}", c(color, f"{latency}ms"))
 
     # Determine overall success: all boolean results must be True
-    bool_results = [
-        v for k, v in results.items() if isinstance(v, bool) and k not in ("buckets",)
-    ]
+    bool_results = [v for k, v in results.items() if isinstance(v, bool) and k not in ("buckets",)]
     bc_bools = [v for v in bc.values() if isinstance(v, bool)]
     all_ok = all(bool_results) and (not bc_bools or all(bc_bools))
 

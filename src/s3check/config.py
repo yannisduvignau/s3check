@@ -15,19 +15,24 @@ from s3check.providers import PROVIDERS, build_endpoint
 from s3check.ui import BOLD, DIM, RED, WHITE, YELLOW, c, info, ok, prompt_bool
 
 
-def prompt(label: str, default: Optional[str] = None, secret: bool = False, choices: Optional[list] = None) -> str:
+def prompt(
+    label: str,
+    default: Optional[str] = None,
+    secret: bool = False,
+    choices: Optional[list] = None,
+) -> str:
     """
     Display a styled prompt and return the user's input.
-    
+
     Args:
         label (str): The field name shown to the user.
         default (str, optional): Pre-filled value shown in brackets; used if user presses Enter.
         secret (bool): If True, use getpass so the input is not echoed to the terminal.
         choices (list, optional): Optional list of accepted values shown as a hint.
-        
+
     Returns:
         str: The user's input string, or `default` if the input is empty.
-        
+
     Examples:
         >>> prompt("Region", default="us-east-1")
         'us-east-1'
@@ -62,9 +67,9 @@ def prompt(label: str, default: Optional[str] = None, secret: bool = False, choi
 def select_provider() -> Dict:
     """
     Display the numbered provider menu and return the chosen provider dict.
-    
+
     Loops until a valid number is entered.
-    
+
     Returns:
         dict: Selected provider configuration.
     """
@@ -83,13 +88,13 @@ def select_provider() -> Dict:
 def collect_config(provider: Dict) -> Dict:
     """
     Prompt the user for each field required by the given provider.
-    
+
     The `fields` list on the provider determines both the order and the
     set of prompts displayed. Only fields declared in that list are asked.
-    
+
     Args:
         provider (dict): Provider definition.
-        
+
     Returns:
         dict: A flat config dictionary (access_key, secret_key, region, …).
     """
@@ -134,15 +139,15 @@ def collect_config(provider: Dict) -> Dict:
 def save_config(provider: Dict, cfg: Dict, interactive: bool = True) -> Optional[str]:
     """
     Save the current config (without the secret key) to a JSON file.
-    
+
     The saved file can be reloaded with --config on subsequent runs.
     The secret key must always be re-entered or provided via environment variable.
-    
+
     Args:
         provider (dict): Provider configuration.
         cfg (dict): User configuration.
         interactive (bool): If True, prompt user before saving.
-        
+
     Returns:
         str or None: Filename if saved, None otherwise.
     """
@@ -167,13 +172,13 @@ def save_config(provider: Dict, cfg: Dict, interactive: bool = True) -> Optional
 def load_config(path: str) -> Dict:
     """
     Load a previously saved JSON config file.
-    
+
     Args:
         path (str): Path to the JSON file.
-        
+
     Returns:
         dict: The parsed config dictionary.
-        
+
     Raises:
         FileNotFoundError: If the config file doesn't exist.
         json.JSONDecodeError: If the config file is not valid JSON.
@@ -185,14 +190,14 @@ def load_config(path: str) -> Dict:
 def validate_config(cfg: Dict, required_fields: Optional[list] = None) -> tuple:
     """
     Validate a configuration dictionary.
-    
+
     Args:
         cfg (dict): Configuration to validate.
         required_fields (list, optional): List of required field names.
-        
+
     Returns:
         tuple: (is_valid: bool, error_message: str or None)
-        
+
     Examples:
         >>> validate_config({"access_key": "AK123", "secret_key": "SK456"})
         (True, None)
