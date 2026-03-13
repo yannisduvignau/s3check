@@ -16,7 +16,7 @@ from s3check.ui import BOLD, DIM, GREEN, YELLOW, c, fail, info, ok, step, warn
 def run_checks(provider: Dict, cfg: Dict) -> Dict[str, Any]:
     """
     Run all checks against the configured S3-compatible endpoint.
-    
+
     Checks performed (in order):
       1. boto3 client instantiation
       2. list_buckets()  → validates connectivity + authentication
@@ -26,14 +26,14 @@ def run_checks(provider: Dict, cfg: Dict) -> Dict[str, Any]:
       6. get_object()    → verifies READ permission (downloads the probe file back)
       7. delete_object() → verifies DELETE permission (cleans up the probe file)
       8. get_bucket_location() → retrieves the bucket's region for information
-      
+
     Args:
         provider (dict): The selected provider definition.
         cfg (dict): The user-provided configuration (keys, region, bucket, …).
-        
+
     Returns:
         dict: A nested results dictionary with True/False/"denied"/None per check.
-        
+
     Examples:
         >>> from s3check.providers import get_provider
         >>> provider = get_provider("aws")

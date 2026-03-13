@@ -89,13 +89,13 @@ PROVIDER_CLI_MAP = {
 def get_provider(identifier: str) -> Optional[Dict]:
     """
     Get a provider definition by numeric ID or CLI name.
-    
+
     Args:
         identifier (str): Numeric ID (e.g., "1") or CLI name (e.g., "aws").
-        
+
     Returns:
         dict or None: Provider definition, or None if not found.
-        
+
     Examples:
         >>> get_provider("1")
         {'name': 'AWS S3', 'endpoint': None, ...}
@@ -105,22 +105,22 @@ def get_provider(identifier: str) -> Optional[Dict]:
     # Try direct numeric lookup first
     if identifier in PROVIDERS:
         return PROVIDERS[identifier]
-    
+
     # Try CLI name mapping
     provider_id = PROVIDER_CLI_MAP.get(identifier.lower())
     if provider_id:
         return PROVIDERS[provider_id]
-    
+
     return None
 
 
 def get_provider_by_name(name: str) -> Optional[Dict]:
     """
     Get a provider definition by its display name.
-    
+
     Args:
         name (str): Provider display name (e.g., "AWS S3").
-        
+
     Returns:
         dict or None: Provider definition, or None if not found.
     """
@@ -133,10 +133,10 @@ def get_provider_by_name(name: str) -> Optional[Dict]:
 def list_providers() -> List[tuple]:
     """
     Get a list of all providers in display order.
-    
+
     Returns:
         list: List of (id, provider_dict) tuples.
-        
+
     Examples:
         >>> providers = list_providers()
         >>> providers[0]
@@ -148,19 +148,19 @@ def list_providers() -> List[tuple]:
 def build_endpoint(provider: Dict, cfg: Dict) -> Optional[str]:
     """
     Resolve the final endpoint URL from the provider definition and user config.
-    
+
     Three cases:
       1. None     → AWS native (boto3 handles it automatically, no endpoint_url)
       2. "custom" → Use the URL typed by the user, adding a scheme if missing
       3. template → Replace {placeholder} tokens with values from `cfg`
-      
+
     Args:
         provider (dict): Provider definition.
         cfg (dict): User configuration with values for placeholders.
-        
+
     Returns:
         str or None: The fully resolved endpoint URL, or None for AWS.
-        
+
     Examples:
         >>> provider = {"endpoint": "https://{region}.example.com"}
         >>> cfg = {"region": "us-west-1"}
